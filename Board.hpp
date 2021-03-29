@@ -12,7 +12,7 @@ namespace ariel
         map<int, map<int, char> *> board;
 
     public:
-        void post(unsigned int row, unsigned int column, Direction dir, const string message);
+        void post(unsigned int row, unsigned int column, Direction dir, const string &message);
         string read(unsigned int row, unsigned int column, Direction dir, unsigned int length);
         void show();
         ~Board()
@@ -23,8 +23,8 @@ namespace ariel
         }
 
     private:
-        void post_vert(int row, int column, const string message);
-        void post_horz(int row, int column, const string message);
+        void post_vert(int row, int column, const string &message);
+        void post_horz(int row, int column, const string &message);
         string read_horz(int row, int column, int length);
         string read_vert(int row, int column, int length);
     };

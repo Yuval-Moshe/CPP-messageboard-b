@@ -6,7 +6,7 @@ using namespace ariel;
 
 namespace ariel
 {
-    void Board::post(unsigned int row, unsigned int column, Direction dir, const string message)
+    void Board::post(unsigned int row, unsigned int column, Direction dir, const string &message)
     {
         if (dir == Direction::Horizontal)
         {
@@ -30,7 +30,8 @@ namespace ariel
         map<int, map<int, char> *>::iterator it = board.begin();
         int min_y = it->first;
         int min_x = (it->second)->begin()->first;
-        int max_x = min_x + 5;
+        const int addition = 5;
+        int max_x = min_x + addition;
 
         while (it != board.end())
         {
@@ -48,10 +49,11 @@ namespace ariel
             it++;
         }
         it--;
+        const int one_dig_num_max = 10;
         int max_y = it->first;
         for (int i = min_y; i <= max_y; i++)
         {
-            if (i < 10)
+            if (i < one_dig_num_max)
             {
                 cout << i << "| ";
             }
@@ -65,7 +67,7 @@ namespace ariel
 
     string Board::read_horz(const int row, const int column, const int length)
     {
-        string ans = "";
+        string ans;
         if (board.find(row) == board.end())
         {
             for (int i = 0; i < length; i++)
@@ -90,7 +92,7 @@ namespace ariel
     }
     string Board::read_vert(const int row, const int column, const int length)
     {
-        string ans = "";
+        string ans;
         for (int i = 0; i < length; i++)
         {
             if (board.find(row + i) == board.end())
@@ -113,7 +115,7 @@ namespace ariel
         return ans;
     }
 
-    void Board::post_horz(const int row, const int column, const string message)
+    void Board::post_horz(const int row, const int column, const string &message)
     {
         if (board.find(row) == board.end())
         {
@@ -136,11 +138,10 @@ namespace ariel
             }
         }
     }
-    void Board::post_vert(const int row, const int column, const string message)
+    void Board::post_vert(const int row, const int column, const string &message)
     {
 
         int len = message.length();
-        map<int, char> *row_map = board.find(row)->second;
         unsigned long row_l = (unsigned long)row;
         for (unsigned long i = 0; i < len; i++)
         {
