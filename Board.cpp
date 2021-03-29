@@ -1,5 +1,4 @@
 #include <iostream>
-#include <array>
 using namespace std;
 #include "Direction.hpp"
 #include "Board.hpp"
