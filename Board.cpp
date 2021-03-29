@@ -11,24 +11,60 @@ namespace ariel
     {
         if (dir == Direction::Horizontal)
         {
-            post_horz((const int) row, (const int) column, message);
+            post_horz((const int)row, (const int)column, message);
         }
         else
         {
-            post_vert((const int) row, (const int) column, message);
+            post_vert((const int)row, (const int)column, message);
         }
     }
     string Board::read(unsigned int row, unsigned int column, Direction dir, unsigned int length)
     {
         if (dir == Direction::Horizontal)
         {
-            return read_horz((const int) row, (const int) column, (const int) length);
+            return read_horz((const int)row, (const int)column, (const int)length);
         }
-        return read_vert((const int) row, (const int) column, (const int) length);
+        return read_vert((const int)row, (const int)column, (const int)length);
     }
-    void Board::show() {}
+    void Board::show()
+    {
+        map<int, map<int, char> *>::iterator it = board.begin();
+        int min_y = it->first;
+        int min_x = (it->second)->begin()->first;
+        int max_x = min_x + 5;
 
-    string Board::read_horz(const int row,  const int column,  const int length)
+        while (it != board.end())
+        {
+            map<int, char> it_map = *(it->second);
+            map<int, char>::iterator it_j = it_map.begin();
+            while (it_j != it_map.end())
+            {
+                it_j++;
+            }
+            it_j--;
+            if (it_j->first > max_x)
+            {
+                max_x = it_j->first;
+            }
+            it++;
+        }
+        it--;
+        int max_y = it->first;
+        for (int i = min_y; i <= max_y; i++)
+        {
+            if (i < 10)
+            {
+                cout << i << "| ";
+            }
+            else
+            {
+                cout << i << "|";
+            }
+            cout << read_horz(i, min_x, (max_x - min_x + 1)) << endl;
+        }
+    }
+
+    string Board::read_horz(const int row, const int column, const int length)
     {
         string ans = "";
         if (board.find(row) == board.end())
@@ -42,7 +78,6 @@ namespace ariel
         map<int, char> *row_map = board.find(row)->second;
         for (int i = 0; i < length; i++)
         {
-            // cout << "Row is " << row << ", Col is " << column + i << endl;
             if (row_map->find(column + i) == row_map->end())
             {
                 ans += "_";
@@ -95,12 +130,10 @@ namespace ariel
             if (row_map->find(col_l + i) == row_map->end())
             {
                 row_map->insert({col_l + i, curr});
-                cout << row_map->find(col_l + i)->second << endl;
             }
             else
             {
                 row_map->find(col_l + i)->second = curr;
-                cout << row_map->find(col_l + i)->second << endl;
             }
         }
     }
@@ -122,12 +155,10 @@ namespace ariel
             if (row_map->find(column) == row_map->end())
             {
                 row_map->insert({column, curr});
-                cout << row_map->find(column)->second << endl;
             }
             else
             {
                 row_map->find(column)->second = curr;
-                cout << row_map->find(column)->second << endl;
             }
         }
     }
