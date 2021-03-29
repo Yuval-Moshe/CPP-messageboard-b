@@ -9,8 +9,6 @@ namespace ariel
 {
     class Board
     {
-        // map<int, Node*> Cols;
-        // map<int, Node*> Rows;
         map<int, map<int, char> *> board;
 
     public:
